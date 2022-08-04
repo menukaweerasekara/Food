@@ -1,4 +1,5 @@
-﻿using Food.Areas.Identity.Data;
+﻿using Food.Models;
+using Food.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         : base(options)
     {
     }
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<Restaurant> Restaurants { get; set; }
+    public DbSet<Location> Locations { get; set; }
+    public DbSet<Menu> Menus { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -22,6 +28,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
 
+        builder.Entity<Employee>().ToTable("Employee");
+        builder.Entity<Restaurant>().ToTable("Restaurant");
+        builder.Entity<Location>().ToTable("Location");
+        builder.Entity<Menu>().ToTable("Menu");
     }
 }
 
