@@ -11,6 +11,6 @@
         public int ReportsToID { get; set; }
         public int RestaurantID { get; set; }
         public Restaurant Restaurants { get; set; }
-        public Employee ReportsTo { get; set; }
+        public Employee? ReportsTo { get; set; }
     }
 }

@@ -80,6 +80,7 @@ namespace Food.Areas.Identity.Data
                 context.Menus.Add(m);
             }
             context.SaveChanges();
+
         } 
     }
 }
