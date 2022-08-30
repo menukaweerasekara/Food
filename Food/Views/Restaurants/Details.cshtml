@@ -1,0 +1,48 @@
+﻿@model Food.Models.Restaurant
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Restaurant</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RestaurantType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RestaurantType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RestaurantName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RestaurantName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfRegistration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfRegistration)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RestaurantRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RestaurantRating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location.LocationID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.RestaurantID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
