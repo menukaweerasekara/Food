@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Food.Areas.Identity.Data;
 using Food.Models;
 
-namespace Food.Views.Employees
+namespace Food.Controllers
 {
     public class EmployeesController : Controller
     {
@@ -61,7 +61,7 @@ namespace Food.Views.Employees
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeID,EmployeeName,DOB,Role,HireDate,Address,ManagerID,RestaurantID")] Employee employee)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
@@ -102,7 +102,7 @@ namespace Food.Views.Employees
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -161,14 +161,14 @@ namespace Food.Views.Employees
             {
                 _context.Employees.Remove(employee);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EmployeeExists(int id)
         {
-          return (_context.Employees?.Any(e => e.EmployeeID == id)).GetValueOrDefault();
+            return (_context.Employees?.Any(e => e.EmployeeID == id)).GetValueOrDefault();
         }
     }
 }

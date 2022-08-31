@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Food.Areas.Identity.Data;
 using Food.Models;
 
-namespace Food.Views.Locations
+namespace Food.Controllers
 {
     public class LocationsController : Controller
     {
@@ -22,9 +22,9 @@ namespace Food.Views.Locations
         // GET: Locations
         public async Task<IActionResult> Index()
         {
-              return _context.Locations != null ? 
-                          View(await _context.Locations.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Locations'  is null.");
+            return _context.Locations != null ?
+                        View(await _context.Locations.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Locations'  is null.");
         }
 
         // GET: Locations/Details/5
@@ -58,7 +58,7 @@ namespace Food.Views.Locations
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LocationID,LocationName,Suburb,AreaCode")] Location location)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(location);
                 await _context.SaveChangesAsync();
@@ -95,7 +95,7 @@ namespace Food.Views.Locations
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -150,14 +150,14 @@ namespace Food.Views.Locations
             {
                 _context.Locations.Remove(location);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LocationExists(int id)
         {
-          return (_context.Locations?.Any(e => e.LocationID == id)).GetValueOrDefault();
+            return (_context.Locations?.Any(e => e.LocationID == id)).GetValueOrDefault();
         }
     }
 }

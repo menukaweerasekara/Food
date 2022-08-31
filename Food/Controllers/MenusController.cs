@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Food.Areas.Identity.Data;
 using Food.Models;
 
-namespace Food.Views.Menus
+namespace Food.Controllers
 {
     public class MenusController : Controller
     {
@@ -59,7 +59,7 @@ namespace Food.Views.Menus
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MenuID,FoodName,Country,Price,RestaurantID")] Menu menu)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(menu);
                 await _context.SaveChangesAsync();
@@ -98,7 +98,7 @@ namespace Food.Views.Menus
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -155,14 +155,14 @@ namespace Food.Views.Menus
             {
                 _context.Menus.Remove(menu);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MenuExists(int id)
         {
-          return (_context.Menus?.Any(e => e.MenuID == id)).GetValueOrDefault();
+            return (_context.Menus?.Any(e => e.MenuID == id)).GetValueOrDefault();
         }
     }
 }
