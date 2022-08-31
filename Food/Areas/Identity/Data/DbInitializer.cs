@@ -18,13 +18,13 @@ namespace Food.Areas.Identity.Data
 
             var employees = new Employee[]
             {
-             new Employee{EmployeeName = "Menuka Weerasekara",DOB=DateTime.Parse("2004-08-27"),Role="Worker",HireDate=DateTime.Parse("2022-03-18"),Address="Home is Cool",ReportsToID= 2,RestaurantID = 1 },
+             new Employee{EmployeeName = "Menuka Weerasekara",DOB=DateTime.Parse("2004-08-27"),Role="Worker",HireDate=DateTime.Parse("2022-03-18"),Address="Home is Cool",ManagerID= 2,RestaurantID = 1 },
              new Employee{EmployeeName = "Hi",DOB=DateTime.Parse("1990-12-07"),Role="Owner",HireDate=DateTime.Parse("20011-05-28"),Address="Home Cool", RestaurantID = 1},
-             new Employee{EmployeeName = "Yes",DOB=DateTime.Parse("2006-02-14"),Role="Worker",HireDate=DateTime.Parse("2015-11-18"),Address="Home",ReportsToID= 4,RestaurantID = 2 },
-             new Employee{EmployeeName = "Cool",DOB=DateTime.Parse("1988-01-23"),Role="Owner",HireDate=DateTime.Parse("2016-01-28"),Address="Coolest", RestaurantID = 2},
-             new Employee{EmployeeName = "Ben",DOB=DateTime.Parse("2006-09-03"),Role="Worker",HireDate=DateTime.Parse("2020-06-18"),Address="Cool",ReportsToID= 6,RestaurantID = 3 },
+             new Employee{EmployeeName = "Yes",DOB=DateTime.Parse("2006-02-14"),Role="Worker",HireDate=DateTime.Parse("2015-11-18"),Address="Home",ManagerID= 4,RestaurantID = 2 },
+             new Employee{EmployeeName = "Cool",DOB=DateTime.Parse("1988-01-23"),Role="Owner",HireDate=DateTime.Parse("2016-01-28"),Address="Coolest", ManagerID = 2},
+             new Employee{EmployeeName = "Ben",DOB=DateTime.Parse("2006-09-03"),Role="Worker",HireDate=DateTime.Parse("2020-06-18"),Address="Cool",ManagerID= 6,RestaurantID = 3 },
              new Employee{EmployeeName = "Kevin",DOB=DateTime.Parse("1999-05-18"),Role="Owner",HireDate=DateTime.Parse("2012-03-28"),Address="Yes", RestaurantID = 3},
-             new Employee{EmployeeName = "Finn",DOB=DateTime.Parse("2004-03-21"),Role="Worker",HireDate=DateTime.Parse("2017-08-18"),Address="Noo",ReportsToID= 8,RestaurantID = 4 },
+             new Employee{EmployeeName = "Finn",DOB=DateTime.Parse("2004-03-21"),Role="Worker",HireDate=DateTime.Parse("2017-08-18"),Address="Noo",ManagerID= 8,RestaurantID = 4 },
              new Employee{EmployeeName = "Edwin",DOB=DateTime.Parse("1987-12-017"),Role="Owner",HireDate=DateTime.Parse("2019-07-28"),Address="Coolest Cool", RestaurantID = 4}
 
             };

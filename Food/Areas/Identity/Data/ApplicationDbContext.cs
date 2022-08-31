@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace Food.Areas.Identity.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -14,8 +15,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
     public DbSet<Employee> Employees { get; set; }
-
-   
     public DbSet<Restaurant> Restaurants { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Menu> Menus { get; set; }
@@ -24,9 +23,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Employee>()
-           .HasOne(e => e.ReportsTo)
+           .HasOne(e => e.Manager)
            .WithMany()
-           .HasForeignKey(t => t.ReportsToID); // t = ReportsTo 
+           .HasForeignKey(m => m.ManagerID); // t = ReportsTo 
       
         base.OnModelCreating(builder);
         // Customize the ASP.NET Identity model and override the defaults if needed.

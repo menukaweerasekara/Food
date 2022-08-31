@@ -8,9 +8,9 @@
         public string Role { get; set; }
         public DateTime HireDate { get; set; }
         public string Address { get; set; }
-        public int ReportsToID { get; set; }
+        public int? ManagerID { get; set; }
         public int RestaurantID { get; set; }
         public Restaurant Restaurants { get; set; }
-        public Employee? ReportsTo { get; set; }
+        public Employee Manager { get; set; }
     }
 }

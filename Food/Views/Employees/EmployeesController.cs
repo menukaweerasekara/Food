@@ -22,7 +22,7 @@ namespace Food.Views.Employees
         // GET: Employees
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Employees.Include(e => e.ReportsTo).Include(e => e.Restaurants);
+            var applicationDbContext = _context.Employees.Include(e => e.Manager).Include(e => e.Restaurants);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace Food.Views.Employees
             }
 
             var employee = await _context.Employees
-                .Include(e => e.ReportsTo)
+                .Include(e => e.Manager)
                 .Include(e => e.Restaurants)
                 .FirstOrDefaultAsync(m => m.EmployeeID == id);
             if (employee == null)
@@ -49,7 +49,7 @@ namespace Food.Views.Employees
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["ReportsToID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID");
+            ViewData["ManagerID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID");
             ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "RestaurantID");
             return View();
         }
@@ -59,7 +59,7 @@ namespace Food.Views.Employees
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeID,EmployeeName,DOB,Role,HireDate,Address,ReportsToID,RestaurantID")] Employee employee)
+        public async Task<IActionResult> Create([Bind("EmployeeID,EmployeeName,DOB,Role,HireDate,Address,ManagerID,RestaurantID")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace Food.Views.Employees
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReportsToID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID", employee.ReportsToID);
+            ViewData["ManagerID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID", employee.ManagerID);
             ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "RestaurantID", employee.RestaurantID);
             return View(employee);
         }
@@ -85,7 +85,7 @@ namespace Food.Views.Employees
             {
                 return NotFound();
             }
-            ViewData["ReportsToID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID", employee.ReportsToID);
+            ViewData["ManagerID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID", employee.ManagerID);
             ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "RestaurantID", employee.RestaurantID);
             return View(employee);
         }
@@ -95,7 +95,7 @@ namespace Food.Views.Employees
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,EmployeeName,DOB,Role,HireDate,Address,ReportsToID,RestaurantID")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,EmployeeName,DOB,Role,HireDate,Address,ManagerID,RestaurantID")] Employee employee)
         {
             if (id != employee.EmployeeID)
             {
@@ -122,7 +122,7 @@ namespace Food.Views.Employees
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReportsToID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID", employee.ReportsToID);
+            ViewData["ManagerID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeID", employee.ManagerID);
             ViewData["RestaurantID"] = new SelectList(_context.Restaurants, "RestaurantID", "RestaurantID", employee.RestaurantID);
             return View(employee);
         }
@@ -136,7 +136,7 @@ namespace Food.Views.Employees
             }
 
             var employee = await _context.Employees
-                .Include(e => e.ReportsTo)
+                .Include(e => e.Manager)
                 .Include(e => e.Restaurants)
                 .FirstOrDefaultAsync(m => m.EmployeeID == id);
             if (employee == null)
