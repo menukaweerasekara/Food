@@ -20,11 +20,31 @@ namespace Food.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            var restaurants = from r in _context.Restaurants
+                           select r;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    restaurants = restaurants.OrderByDescending(r => r.RestaurantName);
+                    break;
+                case "Date":
+                    restaurants = restaurants.OrderBy(r => r.DateOfRegistration);
+                    break;
+                case "date_desc":
+                    restaurants = restaurants.OrderByDescending(s => s.RestaurantType);
+                    break;
+                default:
+                    restaurants = restaurants.OrderBy(s => s.RestaurantRating);
+                    break;
+            }
             var applicationDbContext = _context.Restaurants.Include(r => r.Location);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await restaurants.AsNoTracking().ToListAsync());
         }
+
 
         // GET: Restaurants/Details/5
         public async Task<IActionResult> Details(int? id)
