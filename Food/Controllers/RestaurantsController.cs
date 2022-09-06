@@ -20,12 +20,21 @@ namespace Food.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
             var restaurants = from r in _context.Restaurants
                            select r;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                restaurants = restaurants.Where(r => r.RestaurantName.Contains(searchString)
+                                       || r.RestaurantType.Contains(searchString));
+                                       
+            }
             switch (sortOrder)
             {
                 case "name_desc":
@@ -43,6 +52,7 @@ namespace Food.Controllers
             }
             var applicationDbContext = _context.Restaurants.Include(r => r.Location);
             return View(await restaurants.AsNoTracking().ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
         }
 
 
