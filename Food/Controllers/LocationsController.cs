@@ -20,12 +20,17 @@ namespace Food.Controllers
         }
 
         // GET: Locations
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-       
+            ViewData["CurrentFilter"] = searchString;
             var locations = from l in _context.Locations
                            select l;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                locations = locations.Where(r => r.LocationName.Contains(searchString)
+                                       || r.Suburb.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "name_desc":
