@@ -20,11 +20,26 @@ namespace Food.Controllers
         }
 
         // GET: Locations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return _context.Locations != null ?
-                        View(await _context.Locations.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Locations'  is null.");
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+       
+            var locations = from l in _context.Locations
+                           select l;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    locations = locations.OrderByDescending(s => s.LocationName);
+                    break;
+                
+                case "date_desc":
+                    locations = locations.OrderByDescending(s => s.Suburb);
+                    break;
+                default:
+                    locations = locations.OrderBy(s => s.AreaCode);
+                    break;
+            }
+            return View(await locations.AsNoTracking().ToListAsync());
         }
 
         // GET: Locations/Details/5

@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LocationName)
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LocationName)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Suburb)
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Suburb)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AreaCode)
+                   <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.AreaCode)</a>
             </th>
             <th></th>
         </tr>
