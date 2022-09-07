@@ -20,9 +20,24 @@ namespace Food.Controllers
         }
 
         // GET: Locations
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(
+        string sortOrder,
+        string currentFilter,
+        string searchString,
+        int? pageNumber)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["CurrentFilter"] = searchString;
             var locations = from l in _context.Locations
                            select l;
@@ -44,7 +59,8 @@ namespace Food.Controllers
                     locations = locations.OrderBy(s => s.AreaCode);
                     break;
             }
-            return View(await locations.AsNoTracking().ToListAsync());
+              int pageSize = 5;
+            return View(await PaginatedList<Location>.CreateAsync(locations.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Locations/Details/5
