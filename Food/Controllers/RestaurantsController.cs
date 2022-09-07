@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Food.Areas.Identity.Data;
 using Food.Models;
 
+
 namespace Food.Controllers
 {
     public class RestaurantsController : Controller
@@ -20,10 +21,26 @@ namespace Food.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(
+        string sortOrder,
+         string currentFilter,
+        string searchString,
+         int? pageNumber)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+
             ViewData["CurrentFilter"] = searchString;
 
             var restaurants = from r in _context.Restaurants
@@ -50,8 +67,12 @@ namespace Food.Controllers
                     restaurants = restaurants.OrderBy(s => s.RestaurantRating);
                     break;
             }
+
+            int pageSize = 5;
+            return View(await PaginatedList<Restaurant>.CreateAsync(restaurants.AsNoTracking(), pageNumber ?? 1, pageSize));
+
             var applicationDbContext = _context.Restaurants.Include(r => r.Location);
-            return View(await restaurants.AsNoTracking().ToListAsync());
+           
             //return View(await applicationDbContext.ToListAsync());
         }
 
