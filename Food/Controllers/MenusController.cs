@@ -20,11 +20,34 @@ namespace Food.Controllers
         }
 
         // GET: Menus
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var applicationDbContext = _context.Menus.Include(m => m.Restaurant);
-            return View(await applicationDbContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+       
+            var menus = from m in _context.Menus
+                           select m;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    menus = menus.OrderByDescending(s => s.FoodName);
+                    break;
+                
+                default:
+                    menus = menus.OrderBy(s => s.Price);
+                    break;
+                   
+             var applicationDbContext = _context.Menus.Include(m => m.Restaurant);
+
+            }
+            return View(await menus.AsNoTracking().ToListAsync());
         }
+
+
+
+       
+        // return View(await applicationDbContext.ToListAsync());
+
 
         // GET: Menus/Details/5
         public async Task<IActionResult> Details(int? id)
