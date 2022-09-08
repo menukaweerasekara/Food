@@ -40,7 +40,7 @@ namespace Food.Controllers
 
             ViewData["CurrentFilter"] = searchString;
             var locations = from l in _context.Locations
-                           select l;
+                            select l;
             if (!String.IsNullOrEmpty(searchString))
             {
                 locations = locations.Where(r => r.LocationName.Contains(searchString)
@@ -51,7 +51,7 @@ namespace Food.Controllers
                 case "name_desc":
                     locations = locations.OrderByDescending(s => s.LocationName);
                     break;
-                
+
                 case "date_desc":
                     locations = locations.OrderByDescending(s => s.Suburb);
                     break;
@@ -59,7 +59,7 @@ namespace Food.Controllers
                     locations = locations.OrderBy(s => s.AreaCode);
                     break;
             }
-              int pageSize = 5;
+            int pageSize = 5;
             return View(await PaginatedList<Location>.CreateAsync(locations.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 

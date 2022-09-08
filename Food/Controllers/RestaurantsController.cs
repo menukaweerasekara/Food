@@ -44,13 +44,13 @@ namespace Food.Controllers
             ViewData["CurrentFilter"] = searchString;
 
             var restaurants = from r in _context.Restaurants
-                           select r;
+                              select r;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 restaurants = restaurants.Where(r => r.RestaurantName.Contains(searchString)
                                        || r.RestaurantType.Contains(searchString));
-                                       
+
             }
             switch (sortOrder)
             {
@@ -72,7 +72,7 @@ namespace Food.Controllers
             return View(await PaginatedList<Restaurant>.CreateAsync(restaurants.AsNoTracking(), pageNumber ?? 1, pageSize));
 
             var applicationDbContext = _context.Restaurants.Include(r => r.Location);
-           
+
             //return View(await applicationDbContext.ToListAsync());
         }
 

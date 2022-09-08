@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Food.Migrations
 {
-    public partial class tablescreated : Migration
+    public partial class TablesCreated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,7 @@ namespace Food.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LocationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Suburb = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AreaCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AreaCode = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,7 +31,7 @@ namespace Food.Migrations
                     RestaurantID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RestaurantType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RestaurantName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RestaurantName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     DateOfRegistration = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RestaurantRating = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LocationID = table.Column<int>(type: "int", nullable: false)
@@ -53,9 +53,9 @@ namespace Food.Migrations
                 {
                     EmployeeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeName = table.Column<string>(type: "nvarchar(46)", maxLength: 46, nullable: false),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ManagerID = table.Column<int>(type: "int", nullable: false),

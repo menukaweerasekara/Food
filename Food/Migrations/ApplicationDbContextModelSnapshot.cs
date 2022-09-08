@@ -114,7 +114,8 @@ namespace Food.Migrations
 
                     b.Property<string>("EmployeeName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(46)
+                        .HasColumnType("nvarchar(46)");
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
@@ -128,7 +129,8 @@ namespace Food.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("EmployeeID");
 
@@ -149,7 +151,8 @@ namespace Food.Migrations
 
                     b.Property<string>("AreaCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("LocationName")
                         .IsRequired()
@@ -209,7 +212,8 @@ namespace Food.Migrations
 
                     b.Property<string>("RestaurantName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("RestaurantRating")
                         .IsRequired()
