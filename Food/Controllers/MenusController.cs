@@ -21,12 +21,19 @@ namespace Food.Controllers
 
         // GET: Menus
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-       
+            ViewData["CurrentFilter"] = searchString;
+
             var menus = from m in _context.Menus
                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                menus = menus.Where(m => m.FoodName.Contains(searchString)
+                                       || m.Country.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "name_desc":
