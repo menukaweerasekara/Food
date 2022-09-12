@@ -8,6 +8,9 @@ namespace Food.Models
         public string? RestaurantType { get; set; }
         [StringLength(20)]
         public string RestaurantName { get; set; }
+        
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfRegistration { get; set; }
         public string RestaurantRating { get; set; }
         public int LocationID { get; set; }

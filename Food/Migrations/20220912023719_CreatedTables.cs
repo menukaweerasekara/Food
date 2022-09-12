@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Food.Migrations
 {
-    public partial class TablesCreated : Migration
+    public partial class CreatedTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

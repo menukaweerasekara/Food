@@ -1,4 +1,5 @@
-﻿@model PaginatedList<Food.Models.Restaurant>
+﻿
+@model PaginatedList<Food.Models.Restaurant>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,8 +10,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
-<form asp-action="Index" method="get">
+    <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
             Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
@@ -19,24 +19,24 @@
         </p>
     </div>
 </form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> RestaurantName</a>
+               <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> RestaurantName</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> RestaurantType</a>
+               <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> RestaurantType</a>
             </th>
             <th>
                   <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">DateOfRegistration</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> RestaurantRating</a>
+              <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> RestaurantRating</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Location</a>
-                
+               <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]"> Location</a>
             </th>
             <th></th>
         </tr>
@@ -68,7 +68,7 @@
 }
     </tbody>
 </table>
-    @{
+ @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     }

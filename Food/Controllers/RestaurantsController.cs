@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Food.Areas.Identity.Data;
 using Food.Models;
 
-
 namespace Food.Controllers
 {
     public class RestaurantsController : Controller
@@ -22,10 +21,10 @@ namespace Food.Controllers
 
         // GET: Restaurants
         public async Task<IActionResult> Index(
-        string sortOrder,
-         string currentFilter,
-        string searchString,
-         int? pageNumber)
+   string sortOrder,
+    string currentFilter,
+   string searchString,
+    int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -75,7 +74,6 @@ namespace Food.Controllers
 
             //return View(await applicationDbContext.ToListAsync());
         }
-
 
         // GET: Restaurants/Details/5
         public async Task<IActionResult> Details(int? id)
