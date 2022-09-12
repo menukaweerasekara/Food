@@ -21,9 +21,25 @@ namespace Food.Controllers
 
         // GET: Menus
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(
+      string sortOrder,
+      string currentFilter,
+      string searchString,
+      int? pageNumber)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["CurrentFilter"] = searchString;
 
             var menus = from m in _context.Menus
@@ -47,7 +63,8 @@ namespace Food.Controllers
              var applicationDbContext = _context.Menus.Include(m => m.Restaurant);
 
             }
-            return View(await menus.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            return View(await PaginatedList<Menu>.CreateAsync(menus.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
 
