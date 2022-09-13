@@ -1,5 +1,5 @@
 # Food Database
-Welcome to the foodguide database application which is created for people who love people looking for eating in different locations around New Zealand.
+Welcome to the foodguide database application which is created for people who love  looking for eating in different locations around New Zealand.
 This Database was made for eductional purposes and as an assessment for NCEA Digital Technologies in Level 3 standards. FoodGuide Database is 
 a fictional app created for school assessment purposes.
 
