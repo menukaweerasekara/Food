@@ -1,4 +1,5 @@
 ﻿using Food.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -19,6 +20,12 @@ namespace Food.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult About()
         {
             return View();
         }
