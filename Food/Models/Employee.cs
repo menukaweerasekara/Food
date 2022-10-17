@@ -21,6 +21,6 @@ namespace Food.Models
         public int? ManagerID { get; set; }
         public int RestaurantID { get; set; }
         public Restaurant Restaurants { get; set; }
-        public Employee Manager { get; set; }
+        public Employee? Manager { get; set; }
     }
 }

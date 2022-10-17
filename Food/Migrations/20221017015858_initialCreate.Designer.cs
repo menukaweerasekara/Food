@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Food.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220912023719_CreatedTables")]
-    partial class CreatedTables
+    [Migration("20221017015858_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

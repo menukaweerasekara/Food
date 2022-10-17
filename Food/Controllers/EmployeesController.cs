@@ -168,7 +168,7 @@ namespace Food.Controllers
 
         private bool EmployeeExists(int id)
         {
-            return (_context.Employees?.Any(e => e.EmployeeID == id)).GetValueOrDefault();
+            return _context.Employees.Any(e => e.EmployeeID == id);
         }
     }
 }
