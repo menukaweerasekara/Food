@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Food.Areas.Identity.Data;
 using Food.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Food.Controllers
 {
@@ -95,6 +96,7 @@ namespace Food.Controllers
         }
 
         // GET: Restaurants/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["LocationID"] = new SelectList(_context.Locations, "LocationID", "LocationID");
@@ -119,6 +121,7 @@ namespace Food.Controllers
         }
 
         // GET: Restaurants/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Restaurants == null)
@@ -172,6 +175,7 @@ namespace Food.Controllers
         }
 
         // GET: Restaurants/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Restaurants == null)
