@@ -8,9 +8,9 @@ I decided to build this kind of database is because most of the time when we go 
 
 <h1>Web Development Languages Used</h1>
 
-C# - 62.9%
-HTML - 36.1%
-Other - 1.0%
+C# - 61.9%
+HTML - 37.1%
+Other - 0.9%
 
 <h1>How set up application before running it.</h1>
 <p>1. Download Visual studio.</p>
