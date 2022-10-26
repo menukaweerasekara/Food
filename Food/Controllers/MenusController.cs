@@ -21,58 +21,11 @@ namespace Food.Controllers
         }
 
         // GET: Menus
-
-        public async Task<IActionResult> Index(
-      string sortOrder,
-      string currentFilter,
-      string searchString,
-      int? pageNumber)
+        public async Task<IActionResult> Index()
         {
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
-
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewData["CurrentFilter"] = searchString;
-
-            var menus = from m in _context.Menus
-                           select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                menus = menus.Where(m => m.FoodName.Contains(searchString)
-                                       || m.Country.Contains(searchString));
-            }
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    menus = menus.OrderByDescending(s => s.FoodName);
-                    break;
-                
-                default:
-                    menus = menus.OrderBy(s => s.Price);
-                    break;
-                   
-             var applicationDbContext = _context.Menus.Include(m => m.Restaurant);
-
-            }
-            int pageSize = 3;
-            return View(await PaginatedList<Menu>.CreateAsync(menus.AsNoTracking(), pageNumber ?? 1, pageSize));
+            var applicationDbContext = _context.Menus.Include(m => m.Restaurant);
+            return View(await applicationDbContext.ToListAsync());
         }
-
-
-
-       
-        // return View(await applicationDbContext.ToListAsync());
-
 
         // GET: Menus/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -213,7 +166,7 @@ namespace Food.Controllers
 
         private bool MenuExists(int id)
         {
-            return (_context.Menus?.Any(e => e.MenuID == id)).GetValueOrDefault();
+            return _context.Menus.Any(e => e.MenuID == id);
         }
     }
 }

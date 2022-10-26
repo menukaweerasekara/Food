@@ -21,59 +21,10 @@ namespace Food.Controllers
         }
 
         // GET: Restaurants
-        public async Task<IActionResult> Index(
-   string sortOrder,
-    string currentFilter,
-   string searchString,
-    int? pageNumber)
+        public async Task<IActionResult> Index()
         {
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-
-            ViewData["CurrentFilter"] = searchString;
-
-            var restaurants = from r in _context.Restaurants
-                              select r;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                restaurants = restaurants.Where(r => r.RestaurantName.Contains(searchString)
-                                       || r.RestaurantType.Contains(searchString));
-
-            }
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    restaurants = restaurants.OrderByDescending(r => r.RestaurantName);
-                    break;
-                case "Date":
-                    restaurants = restaurants.OrderBy(r => r.DateOfRegistration);
-                    break;
-                case "date_desc":
-                    restaurants = restaurants.OrderByDescending(s => s.RestaurantType);
-                    break;
-                default:
-                    restaurants = restaurants.OrderBy(s => s.RestaurantRating);
-                    break;
-            }
-
-            int pageSize = 5;
-            return View(await PaginatedList<Restaurant>.CreateAsync(restaurants.AsNoTracking(), pageNumber ?? 1, pageSize));
-
             var applicationDbContext = _context.Restaurants.Include(r => r.Location);
-
-            //return View(await applicationDbContext.ToListAsync());
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Restaurants/Details/5
@@ -215,7 +166,7 @@ namespace Food.Controllers
 
         private bool RestaurantExists(int id)
         {
-            return (_context.Restaurants?.Any(e => e.RestaurantID == id)).GetValueOrDefault();
+            return _context.Restaurants.Any(e => e.RestaurantID == id);
         }
     }
 }
